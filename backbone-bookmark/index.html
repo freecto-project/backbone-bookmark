@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Bookmark</title>
+  <link rel="stylesheet" href="css/bookmark.css"/>
+</head>
+<body>
+  <div id="bookmark-app">
+    <header>
+      <h1>Bookmark</h1>
+      <input type=hidden id="new-id">
+      <div>Title:  <input id="new-title" type="text" placeholder="Ian Blog"></div>
+      <div>Url: <input id="new-url" type="text" placeholder="http://ian.wang"></div>
+      <div>Remark: <input id="new-remark" type="text" placeholder="Ian Wang's blog"></div>
+      <div style="padding:10px">
+      <input  style="padding:10px" id="new-btn" type="button" value="Add Bookmark">
+      <input  style="padding:10px" class="hide" id="edit-btn" type="button" value="Update Bookmark">
+      </div>
+    </header>
+    <section id="main">
+      <input id="toggle-all" type="checkbox">
+      <label for="toggle-all">Check All</label>
+      <ul id="bookmark-list"></ul>
+    </section>
+
+    <footer>
+      <a id="clear-completed">Clear Checked</a>
+      <div id="bookmark-count"></div>
+    </footer>
+
+  </div>
+
+  <div id="credits">
+    Created by  <a href="http://ian.wang/">Ian Wang</a>.
+  </div>
+
+  <script src="js/lib/json2.js"></script>
+  <script src="js/lib/jquery.js"></script>
+  <script src="js/lib/underscore-min.js"></script>
+  <script src="js/lib/backbone-min.js"></script>
+  <script src="js/lib/backbone-localstorage.js"></script>
+  <script src="js/bookmark.js"></script>
+
+  <!-- Templates -->
+  
+  <script type="text/template" id="item-template">
+    <div class="view" oid="<%- order %>">
+      <input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+      <a href="<%- url %>" target="a<%- order %>" title="<%- remark %>"><%- title %></a>
+      <a class="delete fr pl5"> [Delete]</a>
+      <a class="edit fr pl5"> [Edit]</a>
+    </div>
+  </script>
+
+  <script type="text/template" id="stats-template">
+    <% if (done) { %>
+      <a id="clear-completed">Delete <%= done %> checked <%= done == 1 ? 'item' : 'items' %></a>
+    <% } %>
+    <div class="count"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> unchecked</div>
+  </script>
+  
+  </body>
+</html>
